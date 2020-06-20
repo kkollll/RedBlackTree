@@ -108,6 +108,17 @@ public class AVLTree<K extends Comparable<K>, V> {
         root = add(root, key, value);
     }
 
+    public int getDepth() {
+        return getDepth(root, 0);
+    }
+    private int getDepth(Node node, int depth) {
+        if (node == null) {
+            return depth;
+        }
+        int rightDepth = getDepth(node.right,depth + 1);
+        int leftDepth  = getDepth(node.left, depth + 1);
+        return rightDepth > leftDepth ? rightDepth : leftDepth;
+    }
     // 向以node为根的二分搜索树中插入元素(key, value)，递归算法
     // 返回插入新节点后二分搜索树的根
     private Node add(Node node, K key, V value) {
@@ -303,6 +314,7 @@ public class AVLTree<K extends Comparable<K>, V> {
 
             System.out.println("is BST: " + avlTree.isBST());
             System.out.println("is Balanced: " + avlTree.isBanlanced());
+            System.out.println(avlTree.getDepth());
 
             words.forEach(
                     (e) -> {
